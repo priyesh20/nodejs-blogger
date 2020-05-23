@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs')%>
+</head>
+<body>
+   <%- include('../includes/navigation.ejs')%>
+   <main class="container">
+        <form class="product-form form-control" action="/admin/<% if(editing) { %>edit-blog<% } else { %>add-blog<% } %>" method="POST">
+            <div>
+                <label for="title">Blog Title</label>
+                <input style="width: 60rem;" type="text" name="title" id="title" value="<%if(editing) {%><%= blog.title%><%}%>">
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="25" cols="140"><%if(editing) {%><%= blog.description%><%}%></textarea>
+            </div>
+            <% if (editing) { %>
+            <input type="hidden" value="<%= blog._id %>" name="blogId">       
+            <% } %>    
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            <button class="btn" type="submit"><% if(editing) { %> Update Blog <%} else {%> Post Blog <% } %></button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs')%>
+</head>
+<body>
+   <%- include('../includes/navigation.ejs')%>
+   <main class="container">
+      <% if(blogs.length > 0) { %>
+         <% for (let blog of blogs) {%>
+            <div class="blog" >
+               <h1 style="font-size: 4rem;"><%= blog.title%></h1>
+               <hr style="background-color: #dda2b6;">
+               <p style="font-size: 1.5rem;"><%= blog.description %></p>
+               <p class="upVote" style="font-size: 3rem;"><%= blog.upVote %></p>
+               <% if(isAuthenticated){ %>
+                  <input type="hidden" value="<%= blog._id %>" name="blogId">
+                  <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                  <button class="btn" type="button" onclick="voting(this)"><i class="far fa-thumbs-up"></i></button>
+               <% } %>
+            </div>
+         <% } %>
+      <% } else { %>
+         <h1>No Products Found!</h1>
+      <% } %>
+   </main>
+<%- include('../includes/end.ejs') %>
+<script src="/js/like.js"></script>
